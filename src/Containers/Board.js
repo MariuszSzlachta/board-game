@@ -14,7 +14,9 @@ class Board extends Component {
       playerTargetPosition: null
     }
   }
-  
+  onDiceRollHandler = () => {
+    return Math.floor(Math.random(6)+1);
+  }
 
   render() {
     return (
