@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Field from '../../Components/Field/Field';
+
+import classes from './Board.module.scss';
 
 class Board extends Component {
 
@@ -8,12 +11,30 @@ class Board extends Component {
       numberOfDiceRolls: 0,
       diceCurrentRoll: null,
       diceResults: [],
-      playerPosition: 0,
+      playerPosition: 10,
+      board: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       boardSize: 20,
       playerPrevPosition: null,
       playerTargetPosition: null,
       specialFields: [12, 19]
     }
+  }
+
+  componentDidMount(){
+    const board = [...this.state.board];
+    let boards = [];
+    let i = 1;
+
+    // splice into equals subarrays
+    while(board.length) {
+        boards.push(board.splice(0, 5));
+    }
+    // reverse odd rows
+    let finalBoard = boards.map((el, index) => index % 2 !== 0 ? el.reverse() : el);
+    finalBoard = finalBoard.flat();
+    this.setState({
+      board: finalBoard
+    })
   }
 
   onDiceRollHandler = () => {
@@ -75,9 +96,20 @@ class Board extends Component {
 
 
   render() {
+
     return (
-      <div className="Board">
-        
+      <div className={classes.Board}>
+        { this.state.board.map((field, index) => (
+          <Field
+            key={field}
+            number={field}
+            playerOnField={this.state.playerPosition === field}
+            specialField={this.state.specialFields.includes(field)}
+            start={field === 1 || false}
+            finish={field === 20 || false}
+          />
+        )
+      )}
       </div>
     );
   }
