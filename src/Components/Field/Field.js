@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Field.module.scss';
 
-import player from '../../assets/player.jpg';
+import player from '../../assets/player.svg';
 
 const Field = (props) => {
   const fill = props.playerOnField ? <img className={classes.Player} src={player} alt="player face" /> : props.number;

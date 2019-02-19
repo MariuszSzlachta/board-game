@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './Vendor/normalize.min.css';
 import './index.css';
+
+
 import App from './Containers/App/App';
 import * as serviceWorker from './serviceWorker';
 

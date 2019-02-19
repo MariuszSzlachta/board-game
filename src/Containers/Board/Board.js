@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Field from '../../Components/Field/Field';
+import Controls from '../../Components/Controls/Controls';
+import Modal from '../../Components/Modal/Modal';
 
 import classes from './Board.module.scss';
 
@@ -9,21 +11,22 @@ class Board extends Component {
     super(props);
     this.state = {
       numberOfDiceRolls: 0,
-      diceCurrentRoll: null,
       diceResults: [],
-      playerPosition: 10,
+      playerPosition: 0,
       board: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       boardSize: 20,
-      playerPrevPosition: null,
-      playerTargetPosition: null,
-      specialFields: [12, 19]
+      specialFields: [12, 19],
+      avgRoll: 0,
+      loseGame: false,
+      winGame: false,
+      endGameMsg: null
     }
   }
 
   componentDidMount(){
+    // prepares board layout
     const board = [...this.state.board];
     let boards = [];
-    let i = 1;
 
     // splice into equals subarrays
     while(board.length) {
@@ -38,19 +41,24 @@ class Board extends Component {
   }
 
   onDiceRollHandler = () => {
-    return Math.floor(Math.random(6)+1);
+    return Math.floor(Math.random() * 6+1);
   }
 
   specialFieldChecker = targetField => {
-    const specialField = this.state.specialFields.filter(field => field === targetField);
 
-    if (specialField){
-      switch (specialField) {
+    const specialField = this.state.specialFields.filter(field => field === targetField);
+    console.log(specialField)
+    if (specialField.length){
+      console.log('specialField', specialField)
+      switch (specialField[0]) {
         case 19:
+          console.log('19')
           return 11;
         case 12:
-          return -1;
+          console.log('12')
+          return 12;
         default:
+          
           return specialField;
       }
     } else {
@@ -58,42 +66,60 @@ class Board extends Component {
     }
   }
 
-  onFindPlayerTargetPosition = () => {
-    const playerPrevPosition = {...this.state.playerPrevPosition};
-    const boardSize = {...this.state.boardSize};
+  onPlayerMove = () => {
+    const { boardSize } = this.state;
+    let { playerPosition } = this.state;
     const diceResult = this.onDiceRollHandler();
+    const diceResults = [...this.state.diceResults];
+    let { numberOfDiceRolls } = this.state;
+    numberOfDiceRolls++;
+    diceResults.push(diceResult);
 
-    let playerTargetPosition = playerPrevPosition + diceResult;
+    const resultsSum = diceResults.reduce((previousValue, currentValue, index, array) => previousValue + currentValue);
+    const avgRoll = (resultsSum / numberOfDiceRolls).toFixed(1);
+    let playerTargetPosition = playerPosition + diceResult;
+
+    if (playerPosition === 20){
+      playerTargetPosition = 20;
+    }
 
     switch (true) {
       case playerTargetPosition > boardSize:
-        playerTargetPosition = playerPrevPosition + ( playerTargetPosition - boardSize );
+        playerPosition = boardSize - (diceResult - ( boardSize - playerPosition ) )
         break;
 
-      case playerTargetPosition === boardSize:
-        playerTargetPosition = boardSize;
-        // foo winGame
+      case playerPosition === boardSize:
+        playerPosition = boardSize;
         break;
 
-      case playerTargetPosition < boardSize:
-        playerTargetPosition = playerPrevPosition + diceResult;
+      case playerPosition < boardSize:
+        playerPosition = playerPosition + diceResult;
         break;
 
       default:
-      break;
+        break;
     }
-
-    playerTargetPosition = this.specialFieldChecker(playerTargetPosition);
-
-    if (playerTargetPosition === -1) {
-      this.onLoseGame();
+    if (playerPosition === 12){
+      this.setState({
+        loseGame: true
+      })
     }
+    if (playerPosition === 20){
+      this.setState({
+        winGame: true
+      })
+    }
+    this.setState({
+      playerPosition,
+      numberOfDiceRolls,
+      diceResults,
+      avgRoll,
+    })
   }
 
-  onPlayerMove = () => {
+  onWinGameHandler = () =>{
 
   }
-
 
   render() {
 
@@ -109,7 +135,15 @@ class Board extends Component {
             finish={field === 20 || false}
           />
         )
-      )}
+        )}
+        <Controls
+          roll={this.onPlayerMove}
+          endGame={this.state.loseGame || this.state.winGame}
+        />
+        <Modal
+          show={this.state.endGame}
+          data={this.state.endGameMsg}
+        />
       </div>
     );
   }
