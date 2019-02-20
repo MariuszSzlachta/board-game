@@ -1,6 +1,5 @@
 .Field {
   position: relative;
-  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,10 +27,17 @@
 }
 
 .Player {
+  position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate3d(-50%, -50%, 0);
   width: 70%;
   height: auto;
   object-fit: contain;
   animation: player 2s ease-in-out infinite;
+  transition-property: opacity;
+  transition-duration: 0.7s;
+  transition-delay: 2s
 }
 
 @media screen and (min-width:700px){
@@ -56,3 +62,16 @@
   }
 }
 
+@keyframes playerMove {
+  0% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

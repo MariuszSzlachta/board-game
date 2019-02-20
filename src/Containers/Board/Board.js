@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Field from '../../Components/Field/Field';
 import Controls from '../../Components/Controls/Controls';
+import Dice from '../Dice/Dice';
 import Modal from '../../Components/Modal/Modal';
 
 import classes from './Board.module.scss';
@@ -20,6 +21,7 @@ class Board extends Component {
       gameResult: null,
       resultShown: false
     }
+
   }
 
   componentDidMount(){
@@ -39,25 +41,21 @@ class Board extends Component {
     })
   }
 
-  onDiceRollHandler = () => {
-    return Math.floor(Math.random() * 6+1);
+  onDiceRollHandler = (result) => {
+    return result;
   }
 
   specialFieldChecker = targetField => {
 
     const specialField = this.state.specialFields.filter(field => field === targetField);
-    console.log(specialField)
+
     if (specialField.length){
-      console.log('specialField', specialField)
       switch (specialField[0]) {
         case 19:
-          console.log('19')
           return 11;
         case 12:
-          console.log('12')
           return 12;
         default:
-          
           return specialField;
       }
     } else {
@@ -68,7 +66,7 @@ class Board extends Component {
   onPlayerMove = () => {
     const { boardSize } = this.state;
     let { playerPosition } = this.state;
-    const diceResult = this.onDiceRollHandler();
+    const diceResult = this.refs.dice.onDiceRoll();
     const diceResults = [...this.state.diceResults];
     let { numberOfDiceRolls } = this.state;
     numberOfDiceRolls++;
@@ -98,6 +96,9 @@ class Board extends Component {
       default:
         break;
     }
+
+    playerPosition = this.specialFieldChecker(playerPosition);
+
     if (playerPosition === 12){
       this.onShowResultHandler('lose')
     }
@@ -127,6 +128,7 @@ class Board extends Component {
   }
 
   onNewGameHandler = () => {
+    this.refs.dice.clearState();
     this.setState({
       numberOfDiceRolls: 0,
       diceResults: [],
@@ -137,6 +139,7 @@ class Board extends Component {
       resultShown: false
     })
   }
+
   render() {
     return (
       <div className={classes.Container}>
@@ -159,13 +162,14 @@ class Board extends Component {
             newGame={this.onNewGameHandler}
             endGame={this.state.gameResult}
           />
-          <div style={{width: '200px', height: '100px', border: '1px solid red'}}></div>
+          <Dice ref="dice" />
         </div>
         <Modal
           modalShow={this.state.resultShown}
           rollsCount={this.state.numberOfDiceRolls}
           avg={this.state.avgRoll}
           onClose={this.onHideModal}
+          gameResult={this.state.gameResult}
         />
       </div>
     );

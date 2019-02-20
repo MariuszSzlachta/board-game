@@ -1,15 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Backdrop from '../Backdrop/Backdrop';
 
 import classes from './Modal.module.scss';
 
 const Modal = props => {
-  let header = `Congratulations, you win!`;
-  let message = `You have win in ${props.rollsCount} rolls and your avarage roll was ${props.avg}`;
+  let header, message = null;
 
-  if (!props.modalShow){
-    header = '';
-    message = '';
+  switch (props.gameResult) {
+    case '':
+      header = '';
+      message = '';
+      break;
+    case 'win':
+      header = `Congratulations, you win!`;
+      message = `You have win in ${props.rollsCount} rolls and your avarage roll was ${props.avg}`;
+      break;
+    case 'lose':
+      header = 'You lose :(';
+      message = 'Better luck next time!';
+      break;
+    default:
+      header = '';
+      message = '';
   }
 
   return (

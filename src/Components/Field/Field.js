@@ -4,9 +4,8 @@ import classes from './Field.module.scss';
 import player from '../../assets/player.svg';
 
 const Field = (props) => {
-  let fill = props.playerOnField ? <img className={classes.Player} src={player} alt="player face" /> : props.number;
-
   const fieldClasses = [ classes.Field ];
+  let fill = props.number;
 
   if (props.specialField){
     fieldClasses.push(classes.special)
@@ -20,9 +19,23 @@ const Field = (props) => {
     fill = 'finish'
   }
 
+  let imgStyle = {
+    opacity: props.playerOnField ? '1' : '0'
+  }
+
   return (
     <div className={fieldClasses.join(' ')} >
-      {fill}
+      <span
+        className={classes.Field__number}
+      >
+        {fill}
+      </span>
+      <img
+        className={classes.Player}
+        src={player}
+        alt="player face"
+        style={imgStyle}
+      />
     </div>
   );
 };
