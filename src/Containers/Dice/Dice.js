@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './Dice.module.scss';
 
+import dice from '../../assets/dice.mp3';
+
 class Dice extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,9 @@ class Dice extends Component {
   }
 
   onDiceRoll = (e) => {
-    // e.stopPropagation();
+    const diceEffect = new Audio();
+    diceEffect.src = dice;
+    diceEffect.play();
 
     let rollX, rollY = 0;
 

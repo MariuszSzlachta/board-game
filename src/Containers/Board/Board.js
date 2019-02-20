@@ -4,6 +4,9 @@ import Controls from '../../Components/Controls/Controls';
 import Dice from '../Dice/Dice';
 import Modal from '../../Components/Modal/Modal';
 
+import win from '../../assets/win.mp3';
+import lose from '../../assets/lose.mp3';
+
 import classes from './Board.module.scss';
 
 class Board extends Component {
@@ -41,10 +44,6 @@ class Board extends Component {
     })
   }
 
-  onDiceRollHandler = (result) => {
-    return result;
-  }
-
   specialFieldChecker = targetField => {
 
     const specialField = this.state.specialFields.filter(field => field === targetField);
@@ -64,6 +63,7 @@ class Board extends Component {
   }
 
   onPlayerMove = () => {
+    
     const { boardSize } = this.state;
     let { playerPosition } = this.state;
     const diceResult = this.refs.dice.onDiceRoll();
@@ -101,9 +101,15 @@ class Board extends Component {
 
     if (playerPosition === 12){
       this.onShowResultHandler('lose')
+      const failSong = new Audio();
+      failSong.src = lose;
+      failSong.play();
     }
     if (playerPosition === 20){
       this.onShowResultHandler('win')
+      const victorySong = new Audio()
+      victorySong.src = win;
+      victorySong.play()
     }
 
     this.setState({
@@ -115,6 +121,7 @@ class Board extends Component {
   }
 
   onShowResultHandler = (result) => {
+
     this.setState({
       gameResult: result,
       resultShown: true

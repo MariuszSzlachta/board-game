@@ -1,7 +1,7 @@
 .Modal {
   position: fixed;
   z-index: 500;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   display: flex;
@@ -42,5 +42,11 @@
     &:hover {
       border-color: #ff6b6b;
     }
+  }
+}
+
+@media screen and (min-width: 920px) {
+  .Modal {
+    max-width: 700px;
   }
 }

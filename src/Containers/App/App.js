@@ -4,8 +4,6 @@ import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 
 import classes from './App.module.scss';
-
-
 class App extends Component {
   render() {
     return (
