@@ -1,0 +1,46 @@
+.Modal {
+  position: fixed;
+  z-index: 500;
+  top: 40%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: 2px solid #10ac84;
+  padding: 20px 10px;
+  width: 90%;
+  background: #fff;
+  transition: transform 0.7s ease-in-out;
+
+  &__header {
+    font-size: 2rem;
+    color: #ff6b6b;
+    text-align: center;
+  }
+
+  &__message {
+    font-size: 1.4rem;
+    color: #10ac84;
+    text-align: center;
+  }
+
+  &__btn {
+    align-self: flex-end;
+    font-size: 1rem;
+    color: #ff6b6b;
+    background: transparent;
+    outline: 0;
+    border: 1px solid #10ac84;
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: border 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #ff6b6b;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 .Field {
   position: relative;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,29 +10,16 @@
   color: #00d2d3;
 }
 
+.finish,
 .start {
-  &::before {
-    content: 'START';
-  }
+  font-size: 1rem;
 }
 
+.start {
+  color:  #10ac84;
+}
 .finish {
-  &::before {
-    content: 'FINISH';
-  }
-}
-
-.start::before,
-.finish::before {
-  position: absolute;
-  left: -90%;
-  width: 100%;
-  text-align: center;
-  transform: rotate(90deg);
-  color: #ff6b6b;
-}
-.start::before{
-  color: #10ac84;
+  color: #ee5253;
 }
 
 .special {
@@ -50,9 +38,9 @@
   .Field {
     font-size: 4.5rem;
   }
-  .finish::before,
-  .start::before {
-    font-size: 3rem;
+  .finish,
+  .start {
+    font-size: 2.5rem;
   }
 }
 

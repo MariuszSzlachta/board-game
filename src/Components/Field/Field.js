@@ -4,7 +4,7 @@ import classes from './Field.module.scss';
 import player from '../../assets/player.svg';
 
 const Field = (props) => {
-  const fill = props.playerOnField ? <img className={classes.Player} src={player} alt="player face" /> : props.number;
+  let fill = props.playerOnField ? <img className={classes.Player} src={player} alt="player face" /> : props.number;
 
   const fieldClasses = [ classes.Field ];
 
@@ -13,9 +13,11 @@ const Field = (props) => {
   }
   if (props.start === true){
     fieldClasses.push(classes.start)
+    fill = 'start';
   }
   if (props.finish){
     fieldClasses.push(classes.finish)
+    fill = 'finish'
   }
 
   return (

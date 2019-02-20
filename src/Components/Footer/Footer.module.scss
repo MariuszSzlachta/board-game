@@ -1,0 +1,20 @@
+.Footer {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+
+  &__copy {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #10ac84;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .Footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}

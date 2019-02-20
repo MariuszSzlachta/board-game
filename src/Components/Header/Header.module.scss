@@ -1,0 +1,16 @@
+.Header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 0 0;
+  &__title {
+    font-size: 4rem;
+    color: #ff6b6b;
+  }
+
+  &__subtitle {
+    font-size: 2.5rem;
+    color: #10ac84;
+  }
+}

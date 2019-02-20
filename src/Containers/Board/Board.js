@@ -17,9 +17,8 @@ class Board extends Component {
       boardSize: 20,
       specialFields: [12, 19],
       avgRoll: 0,
-      loseGame: false,
-      winGame: false,
-      endGameMsg: null
+      gameResult: null,
+      resultShown: false
     }
   }
 
@@ -100,15 +99,12 @@ class Board extends Component {
         break;
     }
     if (playerPosition === 12){
-      this.setState({
-        loseGame: true
-      })
+      this.onShowResultHandler('lose')
     }
     if (playerPosition === 20){
-      this.setState({
-        winGame: true
-      })
+      this.onShowResultHandler('win')
     }
+
     this.setState({
       playerPosition,
       numberOfDiceRolls,
@@ -117,32 +113,59 @@ class Board extends Component {
     })
   }
 
-  onWinGameHandler = () =>{
-
+  onShowResultHandler = (result) => {
+    this.setState({
+      gameResult: result,
+      resultShown: true
+    })
   }
 
-  render() {
+  onHideModal = () => {
+    this.setState({
+      resultShown: false
+    })
+  }
 
+  onNewGameHandler = () => {
+    this.setState({
+      numberOfDiceRolls: 0,
+      diceResults: [],
+      playerPosition: 0,
+      specialFields: [12, 19],
+      avgRoll: 0,
+      gameResult: null,
+      resultShown: false
+    })
+  }
+  render() {
     return (
-      <div className={classes.Board}>
-        { this.state.board.map((field, index) => (
-          <Field
-            key={field}
-            number={field}
-            playerOnField={this.state.playerPosition === field}
-            specialField={this.state.specialFields.includes(field)}
-            start={field === 1 || false}
-            finish={field === 20 || false}
+      <div className={classes.Container}>
+        <div className={classes.Board}>
+          { this.state.board.map((field, index) => (
+            <Field
+              key={field}
+              number={field}
+              playerOnField={this.state.playerPosition === field}
+              specialField={this.state.specialFields.includes(field)}
+              start={field === 1 || false}
+              finish={field === 20 || false}
+            />
+            )
+          )}
+        </div>
+        <div className={classes.Board__panel}>
+          <Controls
+            roll={this.onPlayerMove}
+            newGame={this.onNewGameHandler}
+            endGame={this.state.gameResult}
           />
-        )
-        )}
-        <Controls
-          roll={this.onPlayerMove}
-          endGame={this.state.loseGame || this.state.winGame}
-        />
+          <div style={{width: '200px', height: '100px', border: '1px solid red'}}></div>
+        </div>
         <Modal
-          show={this.state.endGame}
-          data={this.state.endGameMsg}
+          modalShow={this.state.resultShown}
+          rollsCount={this.state.numberOfDiceRolls}
+          avg={this.state.avgRoll}
+          onClose={this.onHideModal}
         />
       </div>
     );
