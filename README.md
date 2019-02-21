@@ -17,7 +17,7 @@ Content of this message depends on game result. If you lose, you can read some e
 ## How to play
 
 You have 2 ways to play:
-1. Visit [this page](https://)
+1. Visit [this page](https://mariuszszlachta.github.io/board-game/)
 2. Use development mode (instructions bellow)
 
 ## How to develop
