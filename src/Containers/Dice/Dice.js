@@ -34,8 +34,8 @@ class Dice extends Component {
         rollY = -450;
         break;
       case 4:
-        rollX = 810;
-        rollY = 720;
+        rollX = 720;
+        rollY = 810;
       break;
       case 5:
         rollX = 270;

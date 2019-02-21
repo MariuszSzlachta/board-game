@@ -30,7 +30,7 @@ const Modal = props => {
       <div
         className={classes.Modal}
         style={{
-          transform: props.modalShow ? 'translate3d(-50%, 30%, 0)' : 'translate3d(-50%, -100vh, 0)',
+          transform: props.modalShow ? 'translate3d(-50%, 0, 0)' : 'translate3d(-50%, -100vh, 0)',
           opacity: props.modalShow ? '1' : '0'
         }}
       >
