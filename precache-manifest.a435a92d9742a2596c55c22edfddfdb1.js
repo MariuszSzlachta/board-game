@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "url": "/board-game/static/css/main.1c215b20.chunk.css"
   },
   {
-    "revision": "d9084641215851db33b5a77cf41fd745",
+    "revision": "4e281f92031d5c6e41cde74332381e27",
     "url": "/board-game/index.html"
   }
 ];
