@@ -1,4 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Board game
+This is my version of simple board game. Hope you gonna enjoy!
+
+## Game rules
+Before game starts player paws is not visible, because it's outside the boaard.
+In every turn you click in `DICE ROLL` button. After you do that, the game draws a number from 1-6. The number is presented as animated dice. Then player pawn moves forward acording to result on dice.
+The board contains special field.
+When player reach `field 12` he looses the game and special sound effect is played. This is only one rule that allows to lose the game.
+Another special field is `field 19`. When player reach this field his paws is moved into `field 11`.
+Player wins the game when he reaches `field 20` called `finish`. Then player is close to this field and he's result on dice is greater than board size. Target position of his paws is calculated as fallows: distance to reach `field 20` is subtracted from dice roll and difference between this two parameters is added into current position of player's pawn.
+Of course when player wins special effect is played also.
+
+
+After win or lose the game, player can hit `PLAY AGAIN` button and game starts again. But before he do that, he can read special message from popup window.
+Content of this message depends on game result. If you lose, you can read some encouragement but of you win aditional iformations are displayer to you. Like number of dice rolls and avarage dice result.
+
+## How to play
+
+You have 2 ways to play:
+1. Visit [this page](https://)
+2. Use development mode (instructions bellow)
+
+## How to develop
+
+After cloning this repo from github and unziping downloaded file:
+
+1. You need to open terminal inside unziped directory.
+2. Then you need to run `npm install` command and wait until it completes.
+3. Then commands listed below are available for you, and project is ready to develop.
+
+**Because this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) you can use propably common scripts to you.**
 
 ## Available Scripts
 
